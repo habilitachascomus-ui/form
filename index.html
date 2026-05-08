@@ -3,9 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Solicitud de Certificado de Radicación</title>
 
 <style>
+
 *{
   margin:0;
   padding:0;
@@ -20,7 +22,7 @@ body{
 }
 
 .container{
-  max-width:800px;
+  max-width:850px;
   margin:auto;
 }
 
@@ -145,15 +147,18 @@ textarea{
   margin-bottom:15px;
 }
 
-.error{
-  border-color:red !important;
+.required{
+  color:red;
 }
 
 @media(max-width:700px){
+
   .grid{
     grid-template-columns:1fr;
   }
+
 }
+
 </style>
 </head>
 
@@ -168,245 +173,442 @@ textarea{
 
 <div class="form-body" id="formulario">
 
-  <div class="section">
-    <div class="section-title">Tipo de trámite</div>
+<!-- TIPO TRAMITE -->
 
-    <div class="radio-group">
-      <label>
-        <input type="radio" name="tramite" value="Habilitación">
-        Habilitación
-      </label>
+<div class="section">
 
-      <label>
-        <input type="radio" name="tramite" value="Ampliación / Disminución">
-        Ampliación / Disminución de rubro
-      </label>
+<div class="section-title">
+Tipo de trámite
+</div>
 
-      <label>
-        <input type="radio" name="tramite" value="Cambio de domicilio">
-        Cambio de domicilio
-      </label>
-    </div>
-  </div>
+<div class="radio-group">
 
-  <div class="section">
+<label>
+<input type="radio" name="tramite" value="Habilitación" required>
+Habilitación
+</label>
 
-    <div class="section-title">Tipo de persona</div>
+<label>
+<input type="radio" name="tramite" value="Ampliación / Disminución">
+Ampliación / Disminución de rubro
+</label>
 
-    <div class="radio-group">
-      <label>
-        <input type="radio" name="persona" value="fisica" onchange="mostrarTipoPersona()">
-        Persona física
-      </label>
-
-      <label>
-        <input type="radio" name="persona" value="juridica" onchange="mostrarTipoPersona()">
-        Persona jurídica
-      </label>
-    </div>
-
-  </div>
-
-  <!-- PERSONA FISICA -->
-
-  <div id="fisica">
-
-    <div class="section">
-      <div class="section-title">Datos del solicitante</div>
-
-      <div class="grid">
-
-        <div class="field">
-          <label>Apellido y nombre</label>
-          <input type="text" id="apellido_nombre">
-        </div>
-
-        <div class="field">
-          <label>DNI</label>
-          <input type="text" id="dni">
-        </div>
-
-        <div class="field">
-          <label>CUIL</label>
-          <input type="text" id="cuil">
-        </div>
-
-        <div class="field">
-          <label>Teléfono</label>
-          <input type="text" id="telefono">
-        </div>
-
-        <div class="field full">
-          <label>Correo electrónico</label>
-          <input type="email" id="email">
-        </div>
-
-      </div>
-    </div>
-
-  </div>
-
-  <!-- PERSONA JURIDICA -->
-
-  <div id="juridica" class="hidden">
-
-    <div class="section">
-
-      <div class="section-title">Datos de la sociedad</div>
-
-      <div class="grid">
-
-        <div class="field full">
-          <label>Razón social</label>
-          <input type="text" id="razon_social">
-        </div>
-
-        <div class="field">
-          <label>CUIT</label>
-          <input type="text" id="cuit">
-        </div>
-
-        <div class="field">
-          <label>Tipo societario</label>
-
-          <select id="tipo_societario">
-            <option value="">Seleccionar</option>
-            <option>S.A.</option>
-            <option>S.R.L.</option>
-            <option>S.A.S.</option>
-            <option>Cooperativa</option>
-            <option>Otro</option>
-          </select>
-        </div>
-
-        <div class="field">
-          <label>Teléfono</label>
-          <input type="text" id="telefono_juridica">
-        </div>
-
-        <div class="field">
-          <label>Email</label>
-          <input type="email" id="email_juridica">
-        </div>
-
-      </div>
-
-    </div>
-
-    <div class="section">
-
-      <div class="section-title">Representante legal</div>
-
-      <div class="grid">
-
-        <div class="field">
-          <label>Apellido y nombre</label>
-          <input type="text" id="rep_nombre">
-        </div>
-
-        <div class="field">
-          <label>DNI</label>
-          <input type="text" id="rep_dni">
-        </div>
-
-      </div>
-
-    </div>
-
-  </div>
-
-  <!-- ESTABLECIMIENTO -->
-
-  <div class="section">
-
-    <div class="section-title">Datos del establecimiento</div>
-
-    <div class="grid">
-
-      <div class="field">
-        <label>Nombre de fantasía</label>
-        <input type="text" id="fantasia">
-      </div>
-
-      <div class="field">
-        <label>Domicilio</label>
-        <input type="text" id="domicilio">
-      </div>
-
-      <div class="field">
-        <label>Barrio / Localidad</label>
-        <input type="text" id="barrio">
-      </div>
-
-      <div class="field">
-        <label>Partida inmobiliaria</label>
-        <input type="text" id="partida">
-      </div>
-
-      <div class="field">
-        <label>Teléfono</label>
-        <input type="text" id="telefono_establecimiento">
-      </div>
-
-      <div class="field">
-        <label>Superficie m²</label>
-        <input type="number" id="superficie">
-      </div>
-
-    </div>
-
-  </div>
-
-  <!-- ACTIVIDAD -->
-
-  <div class="section">
-
-    <div class="section-title">Actividad</div>
-
-    <div class="field">
-      <label>Rubro</label>
-
-      <select id="rubro">
-        <option value="">Seleccionar</option>
-        <option>Comercio</option>
-        <option>Gastronomía</option>
-        <option>Servicios</option>
-        <option>Industria</option>
-        <option>Otro</option>
-      </select>
-    </div>
-
-    <br>
-
-    <div class="field">
-      <label>Descripción de la actividad</label>
-
-      <textarea id="descripcion"></textarea>
-    </div>
-
-  </div>
-
-  <button class="btn" onclick="enviarFormulario()">
-    Enviar solicitud
-  </button>
+<label>
+<input type="radio" name="tramite" value="Cambio de domicilio">
+Cambio de domicilio
+</label>
 
 </div>
 
+</div>
+
+<!-- TIPO PERSONA -->
+
+<div class="section">
+
+<div class="section-title">
+Tipo de persona
+</div>
+
+<div class="radio-group">
+
+<label>
+<input type="radio" name="persona" value="fisica" onchange="mostrarTipoPersona()" required>
+Persona física
+</label>
+
+<label>
+<input type="radio" name="persona" value="juridica" onchange="mostrarTipoPersona()">
+Persona jurídica
+</label>
+
+</div>
+
+</div>
+
+<!-- PERSONA FISICA -->
+
+<div id="fisica">
+
+<div class="section">
+
+<div class="section-title">
+Datos del solicitante
+</div>
+
+<div class="grid">
+
+<div class="field">
+<label>Apellido y nombre <span class="required">*</span></label>
+<input type="text" id="apellido_nombre" required>
+</div>
+
+<div class="field">
+<label>DNI <span class="required">*</span></label>
+<input type="text" id="dni" required>
+</div>
+
+<div class="field">
+<label>CUIL <span class="required">*</span></label>
+<input type="text" id="cuil" required>
+</div>
+
+<div class="field">
+<label>Teléfono <span class="required">*</span></label>
+<input type="text" id="telefono" required>
+</div>
+
+<div class="field full">
+<label>Correo electrónico <span class="required">*</span></label>
+<input type="email" id="email" required>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- PERSONA JURIDICA -->
+
+<div id="juridica" class="hidden">
+
+<div class="section">
+
+<div class="section-title">
+Datos de la sociedad
+</div>
+
+<div class="grid">
+
+<div class="field full">
+<label>Razón social <span class="required">*</span></label>
+<input type="text" id="razon_social">
+</div>
+
+<div class="field">
+<label>CUIT <span class="required">*</span></label>
+<input type="text" id="cuit">
+</div>
+
+<div class="field">
+<label>Tipo societario <span class="required">*</span></label>
+
+<select id="tipo_societario">
+<option value="">Seleccionar</option>
+<option>S.A.</option>
+<option>S.R.L.</option>
+<option>S.A.S.</option>
+<option>Cooperativa</option>
+<option>Otro</option>
+</select>
+
+</div>
+
+<div class="field">
+<label>Teléfono <span class="required">*</span></label>
+<input type="text" id="telefono_juridica">
+</div>
+
+<div class="field">
+<label>Email <span class="required">*</span></label>
+<input type="email" id="email_juridica">
+</div>
+
+</div>
+
+</div>
+
+<div class="section">
+
+<div class="section-title">
+Representante legal
+</div>
+
+<div class="grid">
+
+<div class="field">
+<label>Apellido y nombre <span class="required">*</span></label>
+<input type="text" id="rep_nombre">
+</div>
+
+<div class="field">
+<label>DNI <span class="required">*</span></label>
+<input type="text" id="rep_dni">
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- ESTABLECIMIENTO -->
+
+<div class="section">
+
+<div class="section-title">
+Datos del establecimiento
+</div>
+
+<div class="grid">
+
+<div class="field">
+<label>Nombre de fantasía <span class="required">*</span></label>
+<input type="text" id="fantasia" required>
+</div>
+
+<div class="field">
+<label>Domicilio <span class="required">*</span></label>
+<input type="text" id="domicilio" required>
+</div>
+
+<div class="field">
+<label>Barrio / Localidad <span class="required">*</span></label>
+<input type="text" id="barrio" required>
+</div>
+
+<div class="field">
+<label>Partida inmobiliaria <span class="required">*</span></label>
+<input type="text" id="partida" required>
+</div>
+
+<div class="field">
+<label>Teléfono <span class="required">*</span></label>
+<input type="text" id="telefono_establecimiento" required>
+</div>
+
+<div class="field">
+<label>Superficie m²</label>
+<input type="number" id="superficie">
+</div>
+
+</div>
+
+</div>
+
+<!-- ACTIVIDAD -->
+
+<div class="section">
+
+<div class="section-title">
+Actividad
+</div>
+
+<div class="field">
+
+<label>Rubro <span class="required">*</span></label>
+
+<select id="rubro" required>
+<option value="">Seleccionar</option>
+<option>Comercio</option>
+<option>Gastronomía</option>
+<option>Servicios</option>
+<option>Industria</option>
+<option>Otro</option>
+</select>
+
+</div>
+
+<br>
+
+<div class="field">
+
+<label>Descripción de la actividad <span class="required">*</span></label>
+
+<textarea id="descripcion" required></textarea>
+
+</div>
+
+</div>
+
+<!-- CARACTERISTICAS -->
+
+<div class="section">
+
+<div class="section-title">
+Características de la actividad
+</div>
+
+<!-- 1 -->
+
+<div class="field" style="margin-bottom:20px;">
+
+<label>
+¿El establecimiento comercializa alimentos, materiales o sustancias?
+<span class="required">*</span>
+</label>
+
+<div class="radio-group">
+
+<label>
+<input type="radio" name="comercializa" value="Sí">
+Sí
+</label>
+
+<label>
+<input type="radio" name="comercializa" value="No">
+No
+</label>
+
+</div>
+
+</div>
+
+<!-- 2 -->
+
+<div class="field" style="margin-bottom:20px;">
+
+<label>
+¿El establecimiento conserva alimentos, materiales o sustancias?
+<span class="required">*</span>
+</label>
+
+<div class="radio-group">
+
+<label>
+<input type="radio" name="conserva" value="Sí">
+Sí
+</label>
+
+<label>
+<input type="radio" name="conserva" value="No">
+No
+</label>
+
+</div>
+
+</div>
+
+<!-- 3 -->
+
+<div class="field" style="margin-bottom:20px;">
+
+<label>
+¿El establecimiento elabora productos propios?
+<span class="required">*</span>
+</label>
+
+<div class="radio-group">
+
+<label>
+<input type="radio" name="elabora" value="Sí">
+Sí
+</label>
+
+<label>
+<input type="radio" name="elabora" value="No">
+No
+</label>
+
+</div>
+
+</div>
+
+<!-- 4 -->
+
+<div class="field" style="margin-bottom:20px;">
+
+<label>
+¿El establecimiento distribuye productos a terceros?
+<span class="required">*</span>
+</label>
+
+<div class="radio-group">
+
+<label>
+<input type="radio" name="distribuye" value="Sí">
+Sí
+</label>
+
+<label>
+<input type="radio" name="distribuye" value="No">
+No
+</label>
+
+</div>
+
+</div>
+
+<!-- 5 -->
+
+<div class="field" style="margin-bottom:20px;">
+
+<label>
+¿Hay permanencia de personas en el establecimiento?
+<span class="required">*</span>
+</label>
+
+<div class="radio-group">
+
+<label>
+<input type="radio" name="permanencia" value="Sí">
+Sí
+</label>
+
+<label>
+<input type="radio" name="permanencia" value="No">
+No
+</label>
+
+</div>
+
+</div>
+
+<!-- 6 -->
+
+<div class="field">
+
+<label>
+¿Se realizan espectáculos o eventos?
+<span class="required">*</span>
+</label>
+
+<div class="radio-group">
+
+<label>
+<input type="radio" name="espectaculos" value="Sí">
+Sí
+</label>
+
+<label>
+<input type="radio" name="espectaculos" value="No">
+No
+</label>
+
+</div>
+
+</div>
+
+</div>
+
+<button class="btn" onclick="enviarFormulario()">
+Enviar solicitud
+</button>
+
+</div>
+
+<!-- EXITO -->
+
 <div class="form-body hidden" id="success">
 
-  <div class="success">
-    <h2>✅ Solicitud enviada correctamente</h2>
+<div class="success">
 
-    <p>
-      La Dirección de Habilitaciones se comunicará a la brevedad.
-    </p>
+<h2>
+✅ Solicitud enviada correctamente
+</h2>
 
-    <br>
+<p>
+La Dirección de Habilitaciones se comunicará a la brevedad.
+</p>
 
-    <button class="btn" onclick="location.reload()">
-      Nueva solicitud
-    </button>
-  </div>
+<br>
+
+<button class="btn" onclick="location.reload()">
+Nueva solicitud
+</button>
+
+</div>
 
 </div>
 
@@ -419,12 +621,17 @@ function mostrarTipoPersona(){
   const tipo = document.querySelector('input[name="persona"]:checked').value;
 
   if(tipo === 'fisica'){
+
     document.getElementById('fisica').classList.remove('hidden');
     document.getElementById('juridica').classList.add('hidden');
+
   }else{
+
     document.getElementById('juridica').classList.remove('hidden');
     document.getElementById('fisica').classList.add('hidden');
+
   }
+
 }
 
 function valor(id){
@@ -437,8 +644,30 @@ function enviarFormulario(){
   const persona = document.querySelector('input[name="persona"]:checked');
 
   if(!tramite || !persona){
+
     alert('Completá tipo de trámite y tipo de persona.');
     return;
+
+  }
+
+  const preguntas = [
+    'comercializa',
+    'conserva',
+    'elabora',
+    'distribuye',
+    'permanencia',
+    'espectaculos'
+  ];
+
+  for(let p of preguntas){
+
+    if(!document.querySelector('input[name="'+p+'"]:checked')){
+
+      alert('Respondé todas las preguntas obligatorias.');
+      return;
+
+    }
+
   }
 
   const datos = {
@@ -469,11 +698,18 @@ function enviarFormulario(){
     superficie: valor('superficie'),
 
     rubro: valor('rubro'),
-    descripcion: valor('descripcion')
+    descripcion: valor('descripcion'),
+
+    comercializa: document.querySelector('input[name="comercializa"]:checked')?.value || '',
+    conserva: document.querySelector('input[name="conserva"]:checked')?.value || '',
+    elabora: document.querySelector('input[name="elabora"]:checked')?.value || '',
+    distribuye: document.querySelector('input[name="distribuye"]:checked')?.value || '',
+    permanencia: document.querySelector('input[name="permanencia"]:checked')?.value || '',
+    espectaculos: document.querySelector('input[name="espectaculos"]:checked')?.value || ''
 
   };
 
-  fetch("https://script.google.com/macros/s/AKfycbxPzqxSXBE3I6Fkq6Gp-DOHfVNziGtpwMiL0O_pdLGdzlQfhwQqo8wGZiYVdvvBQt3K/exec", {
+  fetch("", {
 
     method:"POST",
 
