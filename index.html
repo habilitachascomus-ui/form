@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Solicitud de Certificado de Radicación</title>
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  font-family:Arial, sans-serif;
+  background:#f4f6f9;
+  padding:30px 15px;
+  color:#1a1a1a;
+}
+
+.container{
+  max-width:800px;
+  margin:auto;
+}
+
+.header{
+  background:#003366;
+  color:#fff;
+  padding:20px;
+  border-radius:10px 10px 0 0;
+}
+
+.header h1{
+  font-size:22px;
+  margin-bottom:5px;
+}
+
+.header p{
+  font-size:14px;
+  opacity:0.9;
+}
+
+.form-body{
+  background:#fff;
+  border:1px solid #d8dee8;
+  border-top:none;
+  border-radius:0 0 10px 10px;
+  padding:25px;
+}
+
+.section{
+  margin-bottom:30px;
+}
+
+.section-title{
+  font-size:13px;
+  font-weight:bold;
+  color:#5a6a80;
+  text-transform:uppercase;
+  margin-bottom:15px;
+  border-bottom:1px solid #e4e8f0;
+  padding-bottom:6px;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:15px;
+}
+
+.field{
+  display:flex;
+  flex-direction:column;
+}
+
+.field.full{
+  grid-column:1 / -1;
+}
+
+label{
+  font-size:14px;
+  margin-bottom:5px;
+}
+
+input,
+select,
+textarea{
+  border:1px solid #cbd5e0;
+  border-radius:6px;
+  padding:10px;
+  font-size:14px;
+  font-family:Arial;
+}
+
+textarea{
+  min-height:90px;
+  resize:vertical;
+}
+
+.radio-group{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+}
+
+.radio-group label{
+  background:#f1f5f9;
+  border:1px solid #cbd5e0;
+  padding:10px 15px;
+  border-radius:6px;
+  cursor:pointer;
+}
+
+.radio-group input{
+  margin-right:5px;
+}
+
+.btn{
+  background:#003366;
+  color:#fff;
+  border:none;
+  padding:14px 30px;
+  border-radius:8px;
+  font-size:15px;
+  cursor:pointer;
+  font-weight:bold;
+}
+
+.btn:hover{
+  background:#00254d;
+}
+
+.hidden{
+  display:none;
+}
+
+.success{
+  text-align:center;
+  padding:50px 20px;
+}
+
+.success h2{
+  color:#003366;
+  margin-bottom:15px;
+}
+
+.error{
+  border-color:red !important;
+}
+
+@media(max-width:700px){
+  .grid{
+    grid-template-columns:1fr;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="header">
+  <h1>Solicitud de Certificado de Radicación</h1>
+  <p>Municipalidad de Chascomús — Dirección de Habilitaciones</p>
+</div>
+
+<div class="form-body" id="formulario">
+
+  <div class="section">
+    <div class="section-title">Tipo de trámite</div>
+
+    <div class="radio-group">
+      <label>
+        <input type="radio" name="tramite" value="Habilitación">
+        Habilitación
+      </label>
+
+      <label>
+        <input type="radio" name="tramite" value="Ampliación / Disminución">
+        Ampliación / Disminución de rubro
+      </label>
+
+      <label>
+        <input type="radio" name="tramite" value="Cambio de domicilio">
+        Cambio de domicilio
+      </label>
+    </div>
+  </div>
+
+  <div class="section">
+
+    <div class="section-title">Tipo de persona</div>
+
+    <div class="radio-group">
+      <label>
+        <input type="radio" name="persona" value="fisica" onchange="mostrarTipoPersona()">
+        Persona física
+      </label>
+
+      <label>
+        <input type="radio" name="persona" value="juridica" onchange="mostrarTipoPersona()">
+        Persona jurídica
+      </label>
+    </div>
+
+  </div>
+
+  <!-- PERSONA FISICA -->
+
+  <div id="fisica">
+
+    <div class="section">
+      <div class="section-title">Datos del solicitante</div>
+
+      <div class="grid">
+
+        <div class="field">
+          <label>Apellido y nombre</label>
+          <input type="text" id="apellido_nombre">
+        </div>
+
+        <div class="field">
+          <label>DNI</label>
+          <input type="text" id="dni">
+        </div>
+
+        <div class="field">
+          <label>CUIL</label>
+          <input type="text" id="cuil">
+        </div>
+
+        <div class="field">
+          <label>Teléfono</label>
+          <input type="text" id="telefono">
+        </div>
+
+        <div class="field full">
+          <label>Correo electrónico</label>
+          <input type="email" id="email">
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <!-- PERSONA JURIDICA -->
+
+  <div id="juridica" class="hidden">
+
+    <div class="section">
+
+      <div class="section-title">Datos de la sociedad</div>
+
+      <div class="grid">
+
+        <div class="field full">
+          <label>Razón social</label>
+          <input type="text" id="razon_social">
+        </div>
+
+        <div class="field">
+          <label>CUIT</label>
+          <input type="text" id="cuit">
+        </div>
+
+        <div class="field">
+          <label>Tipo societario</label>
+
+          <select id="tipo_societario">
+            <option value="">Seleccionar</option>
+            <option>S.A.</option>
+            <option>S.R.L.</option>
+            <option>S.A.S.</option>
+            <option>Cooperativa</option>
+            <option>Otro</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label>Teléfono</label>
+          <input type="text" id="telefono_juridica">
+        </div>
+
+        <div class="field">
+          <label>Email</label>
+          <input type="email" id="email_juridica">
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="section">
+
+      <div class="section-title">Representante legal</div>
+
+      <div class="grid">
+
+        <div class="field">
+          <label>Apellido y nombre</label>
+          <input type="text" id="rep_nombre">
+        </div>
+
+        <div class="field">
+          <label>DNI</label>
+          <input type="text" id="rep_dni">
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- ESTABLECIMIENTO -->
+
+  <div class="section">
+
+    <div class="section-title">Datos del establecimiento</div>
+
+    <div class="grid">
+
+      <div class="field">
+        <label>Nombre de fantasía</label>
+        <input type="text" id="fantasia">
+      </div>
+
+      <div class="field">
+        <label>Domicilio</label>
+        <input type="text" id="domicilio">
+      </div>
+
+      <div class="field">
+        <label>Barrio / Localidad</label>
+        <input type="text" id="barrio">
+      </div>
+
+      <div class="field">
+        <label>Partida inmobiliaria</label>
+        <input type="text" id="partida">
+      </div>
+
+      <div class="field">
+        <label>Teléfono</label>
+        <input type="text" id="telefono_establecimiento">
+      </div>
+
+      <div class="field">
+        <label>Superficie m²</label>
+        <input type="number" id="superficie">
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- ACTIVIDAD -->
+
+  <div class="section">
+
+    <div class="section-title">Actividad</div>
+
+    <div class="field">
+      <label>Rubro</label>
+
+      <select id="rubro">
+        <option value="">Seleccionar</option>
+        <option>Comercio</option>
+        <option>Gastronomía</option>
+        <option>Servicios</option>
+        <option>Industria</option>
+        <option>Otro</option>
+      </select>
+    </div>
+
+    <br>
+
+    <div class="field">
+      <label>Descripción de la actividad</label>
+
+      <textarea id="descripcion"></textarea>
+    </div>
+
+  </div>
+
+  <button class="btn" onclick="enviarFormulario()">
+    Enviar solicitud
+  </button>
+
+</div>
+
+<div class="form-body hidden" id="success">
+
+  <div class="success">
+    <h2>✅ Solicitud enviada correctamente</h2>
+
+    <p>
+      La Dirección de Habilitaciones se comunicará a la brevedad.
+    </p>
+
+    <br>
+
+    <button class="btn" onclick="location.reload()">
+      Nueva solicitud
+    </button>
+  </div>
+
+</div>
+
+</div>
+
+<script>
+
+function mostrarTipoPersona(){
+
+  const tipo = document.querySelector('input[name="persona"]:checked').value;
+
+  if(tipo === 'fisica'){
+    document.getElementById('fisica').classList.remove('hidden');
+    document.getElementById('juridica').classList.add('hidden');
+  }else{
+    document.getElementById('juridica').classList.remove('hidden');
+    document.getElementById('fisica').classList.add('hidden');
+  }
+}
+
+function valor(id){
+  return document.getElementById(id).value.trim();
+}
+
+function enviarFormulario(){
+
+  const tramite = document.querySelector('input[name="tramite"]:checked');
+  const persona = document.querySelector('input[name="persona"]:checked');
+
+  if(!tramite || !persona){
+    alert('Completá tipo de trámite y tipo de persona.');
+    return;
+  }
+
+  const datos = {
+
+    tramite: tramite.value,
+    persona: persona.value,
+
+    apellido_nombre: valor('apellido_nombre'),
+    dni: valor('dni'),
+    cuil: valor('cuil'),
+    telefono: valor('telefono'),
+    email: valor('email'),
+
+    razon_social: valor('razon_social'),
+    cuit: valor('cuit'),
+    tipo_societario: valor('tipo_societario'),
+    telefono_juridica: valor('telefono_juridica'),
+    email_juridica: valor('email_juridica'),
+
+    rep_nombre: valor('rep_nombre'),
+    rep_dni: valor('rep_dni'),
+
+    fantasia: valor('fantasia'),
+    domicilio: valor('domicilio'),
+    barrio: valor('barrio'),
+    partida: valor('partida'),
+    telefono_establecimiento: valor('telefono_establecimiento'),
+    superficie: valor('superficie'),
+
+    rubro: valor('rubro'),
+    descripcion: valor('descripcion')
+
+  };
+
+  fetch("https://script.google.com/macros/s/AKfycbxPzqxSXBE3I6Fkq6Gp-DOHfVNziGtpwMiL0O_pdLGdzlQfhwQqo8wGZiYVdvvBQt3K/exec", {
+
+    method:"POST",
+
+    headers:{
+      "Content-Type":"text/plain;charset=utf-8"
+    },
+
+    body:JSON.stringify(datos)
+
+  })
+
+  .then(res => res.text())
+
+  .then(data => {
+
+    document.getElementById('formulario').classList.add('hidden');
+    document.getElementById('success').classList.remove('hidden');
+
+    window.scrollTo({
+      top:0,
+      behavior:'smooth'
+    });
+
+  })
+
+  .catch(error => {
+
+    console.log(error);
+
+    alert("Error al enviar la solicitud.");
+
+  });
+
+}
+
+</script>
+
+</body>
+</html>
